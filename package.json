@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "Crazy fast http radix based router",
   "type": "module",
+  "packageManager": "pnpm@8.10.0",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
     "build": "pnpm build-esm && pnpm build-cjs && pnpm build-annotate && build-utils pack-v2",
     "build-esm": "tsc -b tsconfig.build.json",
