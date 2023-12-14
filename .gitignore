@@ -43,3 +43,9 @@ jspm_packages
 *.swp
 
 package-lock.json
+
+.tsbuildinfo/
+*.tsbuildinfo
+.direnv/
+dist/
+build/

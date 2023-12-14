@@ -1,22 +1,21 @@
 {
-  "name": "find-my-way",
-  "version": "7.7.0",
+  "name": "find-my-way-ts",
+  "version": "0.0.0",
   "description": "Crazy fast http radix based router",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "type": "module",
   "scripts": {
-    "bench": "node ./benchmark/bench.js",
-    "bench:cmp": "node ./benchmark/compare-branches.js",
-    "bench:cmp:ci": "node ./benchmark/compare-branches.js --ci",
-    "test:lint": "standard",
-    "test:typescript": "tsd",
-    "test": "standard && tap -J test/*.test.js && npm run test:typescript",
-    "test:report": "tap -J test/*.test.js --cov --coverage-report=html --coverage-report=cobertura | tee out.tap",
-    "test:reporter": "tap-mocha-reporter xunit < out.tap > test/junit-testresults.xml"
+    "build": "pnpm build-esm && pnpm build-cjs && pnpm build-annotate && build-utils pack-v2",
+    "build-esm": "tsc -b tsconfig.build.json",
+    "build-cjs": "babel build/esm --plugins @babel/transform-export-namespace-from --plugins @babel/transform-modules-commonjs --out-dir build/cjs --source-maps",
+    "build-annotate": "babel build --plugins annotate-pure-calls --out-dir build --source-maps",
+    "clean": "rimraf build dist coverage .tsbuildinfo",
+    "test": "vitest",
+    "check": "tsc -b tsconfig.json",
+    "update-version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/delvedor/find-my-way.git"
+    "url": "git+https://github.com/tim-smart/find-my-way-ts.git"
   },
   "keywords": [
     "http",
@@ -35,24 +34,25 @@
   },
   "homepage": "https://github.com/delvedor/find-my-way#readme",
   "devDependencies": {
-    "@types/node": "^14.0.27",
-    "benchmark": "^2.1.4",
-    "chalk": "^4.1.2",
-    "inquirer": "^8.2.4",
-    "pre-commit": "^1.2.2",
-    "rfdc": "^1.3.0",
-    "simple-git": "^3.7.1",
-    "standard": "^14.3.4",
-    "tap": "^16.0.1",
-    "tap-mocha-reporter": "^5.0.1",
-    "tsd": "^0.13.1"
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/plugin-transform-export-namespace-from": "^7.22.11",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.26.2",
+    "@effect/build-utils": "^0.7.0",
+    "@effect/language-service": "^0.1.0",
+    "@types/node": "^20.10.4",
+    "@vitest/browser": "^1.0.4",
+    "babel-plugin-annotate-pure-calls": "^0.4.0",
+    "playwright": "^1.39.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.6.2",
+    "typescript": "^5.2.2",
+    "vitest": "^1.0.4"
   },
   "dependencies": {
-    "fast-deep-equal": "^3.1.3",
-    "fast-querystring": "^1.0.0",
-    "safe-regex2": "^2.0.0"
-  },
-  "tsd": {
-    "directory": "test/types"
+    "fast-querystring": "^1.0.0"
   }
 }
