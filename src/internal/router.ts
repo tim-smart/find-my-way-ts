@@ -1,5 +1,6 @@
 import * as Router from "../index.js"
 import * as QS from "fast-querystring"
+import { isCloudflare } from "./env.js"
 
 const FULL_PATH_REGEXP = /^https?:\/\/.*?\//
 const OPTIONAL_PARAM_REGEXP = /(\/:[^/()]*?)\?(\/?)/
@@ -516,6 +517,16 @@ class StaticNode extends ParentNode {
 
     if (prefix.length === 1) {
       this.matchPrefix = (_path, _pathIndex) => true
+    } else if (isCloudflare) {
+      const len = prefix.length
+      this.matchPrefix = (path, pathIndex) => {
+        for (let i = 1; i < len; i++) {
+          if (path.charCodeAt(pathIndex + i) !== this.prefix.charCodeAt(i)) {
+            return false
+          }
+        }
+        return true
+      }
     } else {
       const lines = []
       for (let i = 1; i < this.prefix.length; i++) {
@@ -692,6 +703,15 @@ function trimLastSlash(path: string): Router.PathInput {
 function compileCreateParams(
   params: ReadonlyArray<string>,
 ): (paramsArray: ReadonlyArray<string>) => Record<string, string> {
+  if (isCloudflare) {
+    return paramsArray => {
+      const paramsObject: Record<string, string> = {}
+      for (let i = 0, len = params.length; i < len; i++) {
+        paramsObject[params[i]] = paramsArray[i]
+      }
+      return paramsObject
+    }
+  }
   const lines = []
   for (let i = 0; i < params.length; i++) {
     lines.push(`'${params[i]}': paramsArray[${i}]`)
