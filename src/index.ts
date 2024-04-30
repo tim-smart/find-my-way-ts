@@ -42,7 +42,7 @@ export interface Router<A> {
 export interface FindResult<A> {
   readonly handler: A
   readonly params: Record<string, string | undefined>
-  readonly searchParams: Record<string, string>
+  readonly searchParams: Record<string, string | Array<string>>
 }
 
 /**
