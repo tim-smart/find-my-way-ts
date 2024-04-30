@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.2
+
+### Patch Changes
+
+- [`0301d95`](https://github.com/tim-smart/find-my-way-ts/commit/0301d9523252de35752f0a8d6bff769283101e8d) Thanks [@tim-smart](https://github.com/tim-smart)! - fix searchParams types
+
 ## 0.1.1
 
 ### Patch Changes
