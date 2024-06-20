@@ -1,6 +1,6 @@
 import * as Router from "../index.js"
 import * as QS from "fast-querystring"
-import { isCloudflare } from "./env.js"
+import { isEdgeRuntime } from "./env.js"
 
 const FULL_PATH_REGEXP = /^https?:\/\/.*?\//
 const OPTIONAL_PARAM_REGEXP = /(\/:[^/()]*?)\?(\/?)/
@@ -517,8 +517,7 @@ class StaticNode extends ParentNode {
 
     if (prefix.length === 1) {
       this.matchPrefix = (_path, _pathIndex) => true
-      // @ts-expect-error
-    } else if (isCloudflare || typeof EdgeRuntime === "string") {
+    } else if (isEdgeRuntime) {
       const len = prefix.length
       this.matchPrefix = (path, pathIndex) => {
         for (let i = 1; i < len; i++) {
@@ -704,7 +703,7 @@ function trimLastSlash(path: string): Router.PathInput {
 function compileCreateParams(
   params: ReadonlyArray<string>,
 ): (paramsArray: ReadonlyArray<string>) => Record<string, string> {
-  if (isCloudflare) {
+  if (isEdgeRuntime) {
     return paramsArray => {
       const paramsObject: Record<string, string> = {}
       for (let i = 0, len = params.length; i < len; i++) {
