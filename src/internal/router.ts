@@ -1,6 +1,5 @@
 import * as Router from "../index.js"
 import * as QS from "fast-querystring"
-import { isEdgeRuntime } from "./env.js"
 
 const FULL_PATH_REGEXP = /^https?:\/\/.*?\//
 const OPTIONAL_PARAM_REGEXP = /(\/:[^/()]*?)\?(\/?)/
@@ -517,9 +516,9 @@ class StaticNode extends ParentNode {
 
     if (prefix.length === 1) {
       this.matchPrefix = (_path, _pathIndex) => true
-    } else if (isEdgeRuntime) {
+    } else {
       const len = prefix.length
-      this.matchPrefix = (path, pathIndex) => {
+      this.matchPrefix = function (path, pathIndex) {
         for (let i = 1; i < len; i++) {
           if (path.charCodeAt(pathIndex + i) !== this.prefix.charCodeAt(i)) {
             return false
@@ -527,17 +526,6 @@ class StaticNode extends ParentNode {
         }
         return true
       }
-    } else {
-      const lines = []
-      for (let i = 1; i < this.prefix.length; i++) {
-        const charCode = this.prefix.charCodeAt(i)
-        lines.push(`path.charCodeAt(i + ${i}) === ${charCode}`)
-      }
-      this.matchPrefix = new Function(
-        "path",
-        "i",
-        `return ${lines.join(" && ")}`,
-      ) as any
     }
   }
 
@@ -703,20 +691,14 @@ function trimLastSlash(path: string): Router.PathInput {
 function compileCreateParams(
   params: ReadonlyArray<string>,
 ): (paramsArray: ReadonlyArray<string>) => Record<string, string> {
-  if (isEdgeRuntime) {
-    return paramsArray => {
-      const paramsObject: Record<string, string> = {}
-      for (let i = 0, len = params.length; i < len; i++) {
-        paramsObject[params[i]] = paramsArray[i]
-      }
-      return paramsObject
+  const len = params.length
+  return function (paramsArray) {
+    const paramsObject: Record<string, string> = {}
+    for (let i = 0; i < len; i++) {
+      paramsObject[params[i]] = paramsArray[i]
     }
+    return paramsObject
   }
-  const lines = []
-  for (let i = 0; i < params.length; i++) {
-    lines.push(`'${params[i]}': paramsArray[${i}]`)
-  }
-  return new Function("paramsArray", `return {${lines.join(",")}}`) as any
 }
 
 function getClosingParenthensePosition(path: string, idx: number) {
