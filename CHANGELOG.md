@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.3
+
+### Patch Changes
+
+- [`ac0c85b`](https://github.com/tim-smart/find-my-way-ts/commit/ac0c85b66ebf0f71ec27c9b5b8c77a27ddcec1a1) Thanks [@tim-smart](https://github.com/tim-smart)! - add detection for EdgeRuntime
+
 ## 0.1.2
 
 ### Patch Changes
