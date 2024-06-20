@@ -517,7 +517,8 @@ class StaticNode extends ParentNode {
 
     if (prefix.length === 1) {
       this.matchPrefix = (_path, _pathIndex) => true
-    } else if (isCloudflare) {
+      // @ts-expect-error
+    } else if (isCloudflare || typeof EdgeRuntime === "string") {
       const len = prefix.length
       this.matchPrefix = (path, pathIndex) => {
         for (let i = 1; i < len; i++) {
