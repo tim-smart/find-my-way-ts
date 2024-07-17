@@ -1,5 +1,5 @@
 import * as Router from "../index.js"
-import * as QS from "fast-querystring"
+import * as QS from "../QueryString.js"
 
 const FULL_PATH_REGEXP = /^https?:\/\/.*?\//
 const OPTIONAL_PARAM_REGEXP = /(\/:[^/()]*?)\?(\/?)/
