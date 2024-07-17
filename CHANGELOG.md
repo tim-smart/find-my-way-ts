@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.4
+
+### Patch Changes
+
+- [`67ae1d5`](https://github.com/tim-smart/find-my-way-ts/commit/67ae1d58c12440b1f80909a1f607c76812d94964) Thanks [@tim-smart](https://github.com/tim-smart)! - remove use of "new Function"
+
 ## 0.1.3
 
 ### Patch Changes
