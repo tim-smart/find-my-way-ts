@@ -184,8 +184,6 @@ export function stringify(input: Record<string, any>): string {
   return result
 }
 
-module.exports = stringify
-
 // -----------------------------------------------------------------------------
 
 // This has been taken from Node.js project.
