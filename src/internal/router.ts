@@ -215,7 +215,9 @@ class RouterImpl<A> implements Router.Router<A> {
 
     for (const existRoute of this.routes) {
       if (existRoute.method === method && existRoute.pattern === pattern) {
-        return
+        throw new Error(
+          `Method '${method}' already declared for route '${pattern}'`,
+        )
       }
     }
 
