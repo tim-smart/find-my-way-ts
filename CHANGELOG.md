@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.5
+
+### Patch Changes
+
+- [`84c3dd8`](https://github.com/tim-smart/find-my-way-ts/commit/84c3dd81333d470bf91e27e3e0dc5674534c2584) Thanks [@tim-smart](https://github.com/tim-smart)! - add QueryString module
+
 ## 0.1.4
 
 ### Patch Changes
