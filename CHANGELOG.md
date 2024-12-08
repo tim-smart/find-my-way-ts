@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.6
+
+### Patch Changes
+
+- [`44b29d9`](https://github.com/tim-smart/find-my-way-ts/commit/44b29d9771fdc01575e6742e200633c473bb230d) Thanks [@tim-smart](https://github.com/tim-smart)! - don't throw for duplicate routes
+
 ## 0.1.5
 
 ### Patch Changes
