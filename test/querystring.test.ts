@@ -28,3 +28,11 @@ test("handles path and query separated by ;", t => {
     { jsessionid: "123456" },
   )
 })
+
+test("handles %", t => {
+  const router = Router.make<boolean>()
+  router.on("GET", "/test", true)
+  assert.deepStrictEqual(router.find("GET", "/test?%")?.searchParams, {
+    "%": "",
+  })
+})

@@ -55,7 +55,9 @@ export function parse(input: string) {
 
         // Optimization: Do not decode if it's not necessary.
         if (shouldDecodeKey) {
-          key = decodeURIComponent(key) || key
+          try {
+            key = decodeURIComponent(key) || key
+          } catch {}
         }
 
         if (hasBothKeyValuePair) {
@@ -66,7 +68,9 @@ export function parse(input: string) {
           }
 
           if (shouldDecodeValue) {
-            value = decodeURIComponent(value) || value
+            try {
+              value = decodeURIComponent(value) || value
+            } catch {}
           }
         }
         const currentValue = result[key]
