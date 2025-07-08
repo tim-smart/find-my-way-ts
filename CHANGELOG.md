@@ -1,5 +1,11 @@
 # find-my-way-ts
 
+## 0.1.6
+
+### Patch Changes
+
+- [`10c3544`](https://github.com/tim-smart/find-my-way-ts/commit/10c3544ad367d9b93c555cc3c2160302773c501b) Thanks [@tim-smart](https://github.com/tim-smart)! - handle invalid URI errors
+
 ## 0.1.5
 
 ### Patch Changes
